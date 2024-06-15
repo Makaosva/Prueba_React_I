@@ -1,8 +1,8 @@
-import React from "react";
+import { Form } from "react-bootstrap";
 
 function Buscador({ query, setQuery }) {
   return (
-    <input
+    <Form.Control
       type="text"
       placeholder="Filtrar Feriados"
       value={query}
