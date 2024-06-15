@@ -4,7 +4,7 @@ function Buscador({ query, setQuery }) {
   return (
     <input
       type="text"
-      placeholder="Buscar Personaje"
+      placeholder="Filtrar Personaje"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
