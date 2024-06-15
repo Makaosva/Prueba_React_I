@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: black;
 }
 
 h1 {
@@ -65,4 +66,29 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Arreglos CSS  */
+
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: yellow;
+  text-shadow: yellowgreen 2px 1px;
+}
+
+.container {
+  border-radius: 15px;
+  padding: 30px;
+  background-color: lightgray;
+  font-size: 12px;
+  box-shadow: #414363 2px 2px;
+}
+
+.buscador {
+  padding: 20px 0px;
+}
+
+.listado {
+  padding: 10px;
 }
