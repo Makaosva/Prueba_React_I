@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import Buscador from "./Buscador";
 
 function MiApi() {
@@ -9,9 +9,7 @@ function MiApi() {
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
 
-  const url1 = "https://www.swapi.tech/api/people";
-  const url2 = "https://www.swapi.tech/api/planets";
-  const url3 = "https://www.swapi.tech/api/starships";
+  const url = "https://api.boostr.cl/feriados/en.json";
 
   useEffect(() => {
     consultaDeAPI();
@@ -19,9 +17,9 @@ function MiApi() {
 
   const consultaDeAPI = async () => {
     try {
-      const response = await fetch(url1);
+      const response = await fetch(url);
       const info = await response.json();
-      setInfo(info.results);
+      setInfo(info.data);
       setLoading(false);
     } catch (error) {
       console.error(error.message);
@@ -33,12 +31,16 @@ function MiApi() {
   console.log("INFO---->", info);
   console.info("tipo de dato=", typeof info);
 
-  const filteredData = info.filter((people) =>
-    people.name.toLowerCase().includes(query.toLowerCase())
+  const filteredData = info.filter(
+    (fechas) =>
+      fechas.date.toLowerCase().includes(query.toLowerCase()) ||
+      fechas.title.toLowerCase().includes(query.toLowerCase()) ||
+      fechas.type.toLowerCase().includes(query.toLowerCase()) ||
+      fechas.extra.toLowerCase().includes(query.toLowerCase())
   );
   // const sortedData = filteredData.sort((a, b) => a.uid.localeCompare(b.uid));
   const sortedData = filteredData.sort(function (a, b) {
-    return a.uid - b.uid;
+    return a.date - b.date;
   });
 
   if (loading) {
@@ -50,7 +52,7 @@ function MiApi() {
 
   return (
     <>
-      <h1>Lista de Personajes Star Wars</h1>
+      <h1>Feriados de Chile</h1>
       <Container fluid className="container">
         <Row>
           <Col className="buscador">
@@ -58,30 +60,27 @@ function MiApi() {
           </Col>
         </Row>
         <Row>
-          <Col md={5} sm={12} className="listado">
+          <Col className="listado">
             <Table responsive striped bordered className="table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Date</th>
                   <th>Nombre</th>
-                  <th>Ver Detalle</th>
+                  <th>Tipo</th>
+                  <th>Extra</th>
                 </tr>
               </thead>
               <tbody>
-                {sortedData.map((personaje) => (
-                  <tr key={personaje.uid}>
-                    <td>{personaje.uid}</td>
-                    <td>{personaje.name}</td>
-                    <td>
-                      <Button>Detalle</Button>
-                    </td>
+                {sortedData.map((feriado) => (
+                  <tr key={feriado.date}>
+                    <td>{feriado.date}</td>
+                    <td>{feriado.title}</td>
+                    <td>{feriado.type}</td>
+                    <td>{feriado.extra}</td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-          </Col>
-          <Col md={7} sm={12}>
-            <p>Detalle Prsonaje</p>
           </Col>
         </Row>
       </Container>

@@ -4,7 +4,7 @@ function Buscador({ query, setQuery }) {
   return (
     <input
       type="text"
-      placeholder="Filtrar Personaje"
+      placeholder="Filtrar Feriados"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
